@@ -1,0 +1,4 @@
+gq => format
+$ => fin de la ligne
+0 => debut de la ligne
+gcc => comment / uncomment 
