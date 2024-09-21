@@ -30,7 +30,6 @@ lvim.plugins = {
       }
     },
   },
-  { "pocco81/auto-save.nvim" },
   {
     "smoka7/multicursors.nvim",
     event = "VeryLazy",
@@ -58,7 +57,14 @@ vim.cmd([[
   augroup END
 ]])
 
+-- VIM RELATED --
 
+lvim.builtin.which_key.mappings["t"] = {
+  name = "+Terminal",
+  f = { "<cmd>ToggleTerm<cr>", "Floating terminal" },
+  v = { "<cmd>2ToggleTerm size=30 direction=vertical<cr>", "Split vertical" },
+  h = { "<cmd>2ToggleTerm size=30 direction=horizontal<cr>", "Split horizontal" },
+}
 
 -- EVERYTHING C RELATED --
 
