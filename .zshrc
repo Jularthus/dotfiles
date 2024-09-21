@@ -102,13 +102,6 @@ if [[ -n $SSH_CONNECTION ]]; then
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-
-#exports
-
-export icloud=/Users/jularthus/Library/Mobile\ Documents/com\~apple\~CloudDocs/
-export cours=/Users/jularthus/Library/Mobile\ Documents/com\~apple\~CloudDocs/CoursSUP/
-export rider="/Users/jularthus/RiderProjects"
-
 #alias 
 
 alias cls="clear"
@@ -140,21 +133,6 @@ gacp() {
   git commit -m $1
   git push
 }
-
-#AFS
-
-afs() {
-kinit -f jules-arthus.klein@CRI.EPITA.FR
-cd ~
-sshfs -o reconnect -o volname=afs jules-arthus.klein@ssh.cri.epita.fr:/afs/cri.epita.fr/user/j/ju/jules-arthus.klein/u/ afs
-}
-
-sshafs() { 
-kinit -f jules-arthus.klein@CRI.EPITA.FR
-echo /afs/cri.epita.fr/user/j/ju/jules-arthus.klein/u/ | pbcopy
-sftp jules-arthus.klein@ssh.cri.epita.fr
-}
-
 
 alias config='/usr/bin/git --git-dir=/Users/jularthus/.config.git/ --work-tree=/Users/jularthus'
 
