@@ -141,7 +141,7 @@ export PATH=/Users/jularthus/.local/bin:$PATH
 
 unsetopt nomatch
 
-commit() {
+gacp() {
   # Change directory for the root of the Git repository
   cd $(git rev-parse --show-toplevel)
 
