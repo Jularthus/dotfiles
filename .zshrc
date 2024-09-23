@@ -146,7 +146,7 @@ commit() {
   cd $(git rev-parse --show-toplevel)
 
   # Find all executable files in the repository
-  executables=$(find $(git rev-parse --show-toplevel) -type f -perm -u=x)
+  executables=$(find $(git rev-parse --show-toplevel) -type f -perm -u=x -not -path '*/.git/*')
 
   for file in $executables; do
     # Remove leading './' if present
