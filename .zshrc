@@ -102,6 +102,13 @@ if [[ -n $SSH_CONNECTION ]]; then
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
+
+#exports
+
+export icloud=/Users/jularthus/Library/Mobile\ Documents/com\~apple\~CloudDocs/
+export cours=/Users/jularthus/Library/Mobile\ Documents/com\~apple\~CloudDocs/CoursSUP/
+export rider="/Users/jularthus/RiderProjects"
+
 #alias 
 
 alias cls="clear"
@@ -118,21 +125,9 @@ alias rc="nvim ~/.zshrc"
 alias am="~/Documents/AM/am.sh np"
 alias vim="nvim"
 alias miau="kitty"
-alias find="find / -name $1 2&>/dev/null"
+alias nvim=lvim
+alias lv=lvim
 
-gacp() {
-	if [ $# -lt 1 ]
-  then
-    git add -A
-    git commit -m "Automatically pushed by script (no message provided)"
-    git push
-    return
-  fi
-
-  git add -A
-  git commit -m $1
-  git push
-}
 
 alias config='/usr/bin/git --git-dir=/Users/jularthus/.config.git/ --work-tree=/Users/jularthus'
 
