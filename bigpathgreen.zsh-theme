@@ -84,6 +84,15 @@ function steeef_chpwd {
 add-zsh-hook chpwd steeef_chpwd
 
 function steeef_precmd {
+
+    DISABLED_DIRS=("~/afs" "/path/")
+    for DIR in "${DISABLED_DIRS[@]}"; do
+      DISABLED_DIR=${DIR/#\~/$HOME}
+      if [[ "$PWD" == "$DISABLED_DIR"* ]]; then
+            return
+      fi
+    done
+
     if [[ -n "$PR_GIT_UPDATE" ]] ; then
         # check for untracked files or updated submodules, since vcs_info doesn't
         if [[ ! -z $(git ls-files --other --exclude-standard 2> /dev/null) ]]; then
