@@ -85,7 +85,7 @@ add-zsh-hook chpwd steeef_chpwd
 
 function steeef_precmd {
 
-    DISABLED_DIRS=("~/afs" "/path/")
+    DISABLED_DIRS=("~/afs" "~/.config")
     for DIR in "${DISABLED_DIRS[@]}"; do
       DISABLED_DIR=${DIR/#\~/$HOME}
       if [[ "$PWD" == "$DISABLED_DIR"* ]]; then
