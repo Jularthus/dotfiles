@@ -99,10 +99,19 @@ do
                               script="$PLUGIN_DIR/space.sh" # Highlights the current ws
 done
 
+# Add separator. Adjust the length by turning icon/label on/off (built-in paddings)
+sketchybar --add item separator.l1 left                   \
+           --set      separator.l1 padding_left=0         \
+                                   padding_right=-10        \
+                                   background.drawing=off \
+                                   icon.drawing=off       \
+                                   label.drawing=off
+
 sketchybar --add item space_separator left                             \
-           --set space_separator icon="􀆊"                                \
-                                 icon.color=$ACCENT_COLOR \
-                                 icon.padding_left=4                   \
+           --set space_separator icon="􀆊"                              \
+                                 icon.color=$ACCENT_COLOR              \
+                                 icon.padding_left=0                   \
+                                 icon.padding_right=0                 \
                                  label.drawing=off                     \
                                  background.drawing=off                \
                                  script="$PLUGIN_DIR/space_windows.sh" \
@@ -111,38 +120,30 @@ sketchybar --add item space_separator left                             \
 # Group all spaces together
 sketchybar --add bracket spaces '/space\..*/'                      \
            --set         spaces background.color=$COLOR_BACKGROUND \
-                                background.drawing=on
-
-# Separator
-sketchybar --add item seperator.l2 left                   \
-           --set      seperator.l2 padding_left=4         \
-                                   padding_right=4        \
-                                   background.drawing=off \
-                                   icon.drawing=off       \
-                                   label.drawing=off
+                                background.drawing=on              
 
 # Current app
-sketchybar --add item space_separator left                         \
-           --set space_separator icon=                            \
-                                 icon.padding_right=0              \
-                                 label.drawing=off                 \
-                                 icon.font="$FONT:Regular:14.24"   \
-                                 icon.color=$COLOR_FOREGROUND      \
-                                 icon.highlight_color=$COLOR_GREEN \
-                                 icon.padding_left=$PADDING_L      \
-                                 icon.padding_right=$PADDING_      \
-                                 icon.drawing=on                   \
-                                                                   \
-           --add item front_app left                               \
-           --set front_app       script="$PLUGIN_DIR/front_app.sh" \
-                                 label.padding_left=0              \
+sketchybar --add item space_separator2 left                         \
+           --set space_separator2 icon=                            \
+                                 icon.padding_left=5                \
+                                 icon.padding_right=2               \
+                                 label.drawing=off                  \
+                                 icon.font="$FONT:Regular:14.24"    \
+                                 icon.color=$COLOR_FOREGROUND       \
+                                 icon.highlight_color=$COLOR_GREEN  \
+                                 icon.drawing=on                    \
+
+sketchybar --add item front_app left                               \
+           --set front_app script="$PLUGIN_DIR/front_app.sh"       \
+                                 label.padding_left=2              \
                                  icon.drawing=off                  \
            --subscribe front_app front_app_switched
 
-# Group the separator and app name together
-sketchybar --add bracket curr_app space_separator front_app          \
-           --set         curr_app background.color=$COLOR_BACKGROUND \
-                                  background.drawing=on
+sketchybar --add bracket curr_app space_separator2 front_app          \
+           --set         curr_app background.color=$COLOR_BACKGROUND  \
+                                  background.drawing=on               \
+                                  background.padding_left=0           \
+                                  background.padding_right=0
 
 ##### Adding Right Items #####
 

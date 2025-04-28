@@ -7,6 +7,14 @@ lvim.plugins = {
   { "vyfor/cord.nvim" },
 }
 
+-- Cord.nvim config
+require('cord').setup {
+  editor = {
+    client = "lunarvim",
+    tooltip = "LunarVim 4 the win!",
+  }
+}
+
 -- Neoformat configuration
 vim.cmd([[
   augroup fmt

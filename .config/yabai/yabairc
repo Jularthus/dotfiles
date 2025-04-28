@@ -1,9 +1,6 @@
 yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
 sudo yabai --load-sa
 
-# default layout (can be bsp, stack or float)
-yabai -m config layout bsp
-
 #config
 yabai -m config \
 	mouse_follows_focus on \
@@ -14,7 +11,7 @@ yabai -m config \
 	window_animation_duration 0.1 \
 	window_opacity_duration 0.0 \
 	active_window_opacity 1.0 \
-	normal_window_opacity 0.8 \
+	normal_window_opacity 1.0 \
 	window_opacity on \
 	split_ratio 0.50 \
 	split_type auto \
@@ -31,7 +28,4 @@ yabai -m config \
 	mouse_drop_action swap \
 	external_bar all:30:0
 
-# not managed
-yabai -m rule --add app="^Mail$" opacity=1.0
-yabai -m rule --add app="^Calendar$" opacity=1.0
-yabai -m rule --add app="^kitty$" opacity=1.0
+# yabai -m rule --add app="^ChatGPT$" opacity=0.10
