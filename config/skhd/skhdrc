@@ -6,6 +6,9 @@ ctrl - return : open /System/Library/CoreServices/Finder.app
 
 # create / destroy spaces
 ctrl - 0x33 : python3 /Users/jularthus/.config/skhd/plugins/allowCreation.py 
+ralt - 0x33 : python3 /Users/jularthus/.config/skhd/plugins/allowCreation.py 
+
+ralt + shift - 0x33 : python3 /Users/jularthus/.config/skhd/plugins/killEmptySpaces.py
 ctrl + shift - 0x33 : python3 /Users/jularthus/.config/skhd/plugins/killEmptySpaces.py
 
 # change window focus within space

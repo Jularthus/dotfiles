@@ -1,25 +1,21 @@
-# Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
-#ZSH_THEME="hyperzsh"
-ZSH_THEME="bigpathgreen"
+ZSH_THEME="bigpathblue"
 
-# Standard plugins can be found in $ZSH/plugins/
-# Custom plugins may be added to $ZSH_CUSTOM/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
 plugins=(git)
 
 source $ZSH/oh-my-zsh.sh
 
-# Preferred editor for local and remote sessions
 if [[ -n $SSH_CONNECTION ]]; then
    export EDITOR='vim'
  else
    export EDITOR='lvim'
- fi
+fi
+
+# path
+export PATH=/Users/jularthus/.local/bin:$PATH
 
 #alias 
-
 alias cls="clear"
 alias gc="git commit -m"
 alias ga="git add -A"
@@ -27,38 +23,42 @@ alias gl="git log"
 alias gp="git push"
 alias gs="git status"
 alias gd="git diff HEAD^ HEAD"
-alias miau="kitty"
-# alias nvim=lvim
 alias lv=lvim
+alias r="ranger ."
+alias pv="qlmanage -p"
+alias ncat="netcat"
+alias cat="bat --paging=never --plain"
 alias :q=exit
 
-alias cdocker="docker run -it --rm -v $(pwd):/app c-dev-zsh-environment"
+fs() {
+  local action="$1"
+  local arg="$2"
 
+  extract_token() {
+    echo "$1" | sed -E 's|.*/f/||'
+  }
 
-alias config='/usr/bin/git --git-dir=/Users/jularthus/.config.git/ --work-tree=/Users/jularthus'
+  case "$action" in
+    upload)
+      curl -sf -F "file=@$arg" https://files.jularthus.fr/api/upload \
+        | tee >(pbcopy 2>/dev/null || xclip -selection clipboard 2>/dev/null)
+      ;;
+    delete)
+      local token
+      token=$(extract_token "$arg")
+      curl -sf -X DELETE "https://files.jularthus.fr/api/token/$token" && echo "✅ Supprimé"
+      ;;
+    *)
+      echo "Usage : fs upload <file> | fs delete <token|url>"
+      ;;
+  esac
+}
 
-export PATH=/Users/jularthus/.local/bin:$PATH
-
-unsetopt nomatch
+alias fortuneStart="sshfs -o reconnect -p 8022 jularthus@jularthus.fr:/home/jularthus/AuCoin/fortune ~/.config/fortune"
+alias fortuneStop="umount -f ~/.config/fortune"
 
 gacp() {
-  # Change directory for the root of the Git repository
   cd $(git rev-parse --show-toplevel)
-
-  # Find all executable files in the repository
-  executables=$(find $(git rev-parse --show-toplevel) -type f -perm -u=x -not -path '*/.git/*')
-
-  for file in $executables; do
-    # Remove leading './' if present
-    file_cleaned=$(echo "$file" | sed 's|^\./||')
-
-    # Check if the file isn't already in .gitignore
-    if ! grep -qxF "$file_cleaned" .gitignore; then
-      echo "Adding $file_cleaned to .gitignore"
-      echo "$file_cleaned" >> .gitignore
-      git add .gitignore
-    fi
-  done
 
   git add -A
   echo -n "Enter commit name: "
@@ -67,18 +67,23 @@ gacp() {
   git push
 }
 
-function clone() {
-    if [ -z "$1" ]; then
-        echo "Please provide a Git repository URL."
-        return 1
+function devdocker() {
+    if [ $# -eq 0 ]; then
+        docker run --platform linux/amd64 -it --rm -v "$(pwd)":/app dev-env-docker
+    else
+        if [ "$1" = "check" ] && [ -n "$2" ]; then
+            docker run --platform linux/amd64 --rm -v "$(pwd)":/app dev-env-docker sh -c "valgrind --leak-check=full --show-leak-kinds=all ./$2"
+        else
+            docker run --platform linux/amd64 --rm -v "$(pwd)":/app dev-env-docker sh -c "$*"
+        fi
     fi
-
-    git clone "$1" && cd "$(basename "$1" .git)"
 }
+alias dd=devdocker
 
 #AFS
 afs() {
-kinit -f jules-arthus.klein@CRI.EPITA.FR
-cd ~
-sshfs -o reconnect -o volname=afs jules-arthus.klein@ssh.cri.epita.fr:/afs/cri.epita.fr/user/j/ju/jules-arthus.klein/u/ afs
+  kinit -f jules-arthus.klein@CRI.EPITA.FR
+  cd ~
+  sshfs -o reconnect -o volname=afs jules-arthus.klein@ssh.cri.epita.fr:/afs/cri.epita.fr/user/j/ju/jules-arthus.klein/u/ afs
+  cd ~/afs
 }
