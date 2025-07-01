@@ -17,7 +17,9 @@ isFullscreen = bool(
     '"is-native-fullscreen":true' in queryFullscreen.stdout.decode("utf-8")
 )
 
-if system(f"yabai -m space --focus {arg - 1 if isFullscreen else arg}"):
+finalSpace = arg - 1 if arg > spacesNumber and isFullscreen else arg
+
+if system(f"yabai -m space --focus {finalSpace}"):
     system(
-        f"yabai -m query --spaces --space {arg}  | jq -r '.windows[0]' | xargs yabai -m window --focus"
+        f"yabai -m query --spaces --space {finalSpace}  | jq -r '.windows[0]' | xargs yabai -m window --focus"
     )
