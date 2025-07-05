@@ -1,7 +1,8 @@
-#create terminal
+# create terminal
 cmd - return : kitty -1 ~
 shift + cmd - return : kitty -1 ssh serv
 
+# open finder
 ctrl - return : open /System/Library/CoreServices/Finder.app
 
 # create / destroy spaces
@@ -21,7 +22,7 @@ lalt - right : yabai -m window --focus east
 ctrl - space : yabai -m window --toggle split
 
 # toggle window float
-shift + alt - t : yabai -m window --toggle float --grid 4:4:1:1:2:2
+alt - f : yabai -m window --toggle float --grid 4:4:1:1:2:2
 
 # maximize a window
 shift + alt - f : yabai -m window --toggle zoom-fullscreen
@@ -35,10 +36,6 @@ ralt - left : yabai -m space --focus prev
 ctrl - left : yabai -m space --focus prev
 ralt - right : yabai -m space --focus next 
 ctrl - right : yabai -m space --focus next 
-
-#move window to prev and next space
-shift + alt - p : yabai -m window --space prev;
-shift + alt - n : yabai -m window --space next;
 
 # go to desktop
 ctrl - 0x12 : python3 /Users/jularthus/.config/skhd/plugins/moveTo.py 1
@@ -67,10 +64,7 @@ shift + ctrl - 0x1D : python3 /Users/jularthus/.config/skhd/plugins/createSpaces
 # move to app
 ctrl - d : python3 /Users/jularthus/.config/skhd/plugins/moveToApp.py Discord
 ctrl - s : python3 /Users/jularthus/.config/skhd/plugins/moveToApp.py Safari
-ctrl - v : python3 /Users/jularthus/.config/skhd/plugins/moveToApp.py Code
-ctrl - w : python3 /Users/jularthus/.config/skhd/plugins/moveToApp.py kitty
-ctrl - m : python3 /Users/jularthus/.config/skhd/plugins/moveToApp.py Mail
-ctrl - l : python3 /Users/jularthus/.config/skhd/plugins/moveToApp.py Calendar
+ctrl - m : python3 /Users/jularthus/.config/skhd/plugins/moveToApp.py Music
 
 # stop/start/restart yabai
 ctrl + alt - q : yabai --stop-service
