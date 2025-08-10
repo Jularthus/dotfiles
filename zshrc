@@ -1,4 +1,5 @@
 export ZSH="$HOME/.oh-my-zsh"
+DISABLE_UPDATE_PROMPT=true # Auto update
 
 ZSH_THEME="bigpathblue"
 
@@ -13,7 +14,7 @@ if [[ -n $SSH_CONNECTION ]]; then
 fi
 
 # path
-export PATH=/Users/jularthus/.local/bin:$PATH
+export PATH=$HOME/.local/bin:$PATH
 
 #alias 
 alias cls="clear"
@@ -30,30 +31,6 @@ alias ncat="netcat"
 alias cat="bat --paging=never --plain"
 alias :q=exit
 
-fs() {
-  local action="$1"
-  local arg="$2"
-
-  extract_token() {
-    echo "$1" | sed -E 's|.*/f/||'
-  }
-
-  case "$action" in
-    upload)
-      curl -sf -F "file=@$arg" https://files.jularthus.fr/api/upload \
-        | tee >(pbcopy 2>/dev/null || xclip -selection clipboard 2>/dev/null)
-      ;;
-    delete)
-      local token
-      token=$(extract_token "$arg")
-      curl -sf -X DELETE "https://files.jularthus.fr/api/token/$token" && echo "✅ Supprimé"
-      ;;
-    *)
-      echo "Usage : fs upload <file> | fs delete <token|url>"
-      ;;
-  esac
-}
-
 alias fortuneStart="sshfs -o reconnect -p 8022 jularthus@jularthus.fr:/home/jularthus/AuCoin/fortune ~/.config/fortune"
 alias fortuneStop="umount -f ~/.config/fortune"
 
@@ -69,7 +46,7 @@ gacp() {
 
 function devdocker() {
     if [ $# -eq 0 ]; then
-        docker run --platform linux/amd64 -it --rm -v "$(pwd)":/app dev-env-docker
+        docker run --platform linux/amd64 --cap-add=SYS_PTRACE --security-opt seccomp=unconfined -it --rm -v "$(pwd)":/app dev-env-docker
     else
         if [ "$1" = "check" ] && [ -n "$2" ]; then
             docker run --platform linux/amd64 --rm -v "$(pwd)":/app dev-env-docker sh -c "valgrind --leak-check=full --show-leak-kinds=all ./$2"
