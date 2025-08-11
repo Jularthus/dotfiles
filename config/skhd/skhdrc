@@ -1,3 +1,6 @@
+# lock computer
+shift + cmd - e : open -a ScreenSaverEngine
+
 # create terminal
 cmd - return : kitty -1 ~
 shift + cmd - return : kitty -1 ssh serv
@@ -62,9 +65,9 @@ shift + ctrl - 0x19 : python3 /Users/jularthus/.config/skhd/plugins/createSpaces
 shift + ctrl - 0x1D : python3 /Users/jularthus/.config/skhd/plugins/createSpaces.py 10
 
 # move to app
-ctrl - d : python3 /Users/jularthus/.config/skhd/plugins/moveToApp.py Discord
-ctrl - s : python3 /Users/jularthus/.config/skhd/plugins/moveToApp.py Safari
-ctrl - m : python3 /Users/jularthus/.config/skhd/plugins/moveToApp.py Music
+rshift - d : python3 /Users/jularthus/.config/skhd/plugins/moveToApp.py Discord
+rshift - s : python3 /Users/jularthus/.config/skhd/plugins/moveToApp.py Safari
+rshift - m : python3 /Users/jularthus/.config/skhd/plugins/moveToApp.py Music
 
 # stop/start/restart yabai
 ctrl + alt - q : yabai --stop-service
